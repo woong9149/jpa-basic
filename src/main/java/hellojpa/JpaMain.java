@@ -36,19 +36,26 @@ public class JpaMain {
 //            }
 
             // 비영속
+//            Member member = new Member();
+//            member.setId(101L);
+//            member.setName("HelloJPA");
+//
+//            // 영속
+//            System.out.println("=== BEFORE ===");
+//            em.persist(member);
+//            System.out.println("=== AFTER ===");
+//
+//            Member findMember = em.find(Member.class, 101L);
+//
+//            System.out.println("findMember.getId() = " + findMember.getId());
+//            System.out.println("findMember.getName() = " + findMember.getName());
+
             Member member = new Member();
-            member.setId(101L);
-            member.setName("HelloJPA");
+            member.setId(2L);
+            member.setUsername("B");
+            member.setRoleType(RoleType.USER);
 
-            // 영속
-            System.out.println("=== BEFORE ===");
             em.persist(member);
-            System.out.println("=== AFTER ===");
-
-            Member findMember = em.find(Member.class, 101L);
-
-            System.out.println("findMember.getId() = " + findMember.getId());
-            System.out.println("findMember.getName() = " + findMember.getName());
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
