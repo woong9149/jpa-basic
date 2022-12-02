@@ -50,11 +50,20 @@ public class JpaMain {
 //            System.out.println("findMember.getId() = " + findMember.getId());
 //            System.out.println("findMember.getName() = " + findMember.getName());
 
-            Member member = new Member();
-            member.setId(2L);
-            member.setUsername("B");
-            member.setRoleType(RoleType.USER);
+//            Member member = new Member();
+//            member.setId(2L);
+//            member.setUsername("B");
+//            member.setRoleType(RoleType.USER);
+//
+//            em.persist(member);
 
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
             em.persist(member);
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
