@@ -57,15 +57,31 @@ public class JpaMain {
 //
 //            em.persist(member);
 
+
+            /** mappedBy 는 readOnly 이기 때문에 memberId가 null로 들어감
+             * Member member = new Member();
+             * member.setUsername("member1");
+             * //  member.setTeamId(team.getId());
+             *  em.persist(member);
+             *
+             * Team team = new Team();
+             * team.setName("TeamA");
+             * team.getMembers().add(member);
+             * em.persist(team);
+             */
+
             Team team = new Team();
             team.setName("TeamA");
+//            team.getMembers().add(member);
             em.persist(team);
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
 //            member.setTeamId(team.getId());
+            member.setTeam(team);
             em.persist(member);
+
+
 
 //            Member findMember = em.find(Member.class, member.getId());
 //            Team findTeam = findMember.getTeam();
@@ -75,12 +91,19 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
+            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
+            List<Member> members = findTeam.getMembers();
 
             for (Member m : members) {
                 System.out.println("m = " + m.getUsername());
             }
+
+//            Member findMember = em.find(Member.class, member.getId());
+//            List<Member> members = findMember.getTeam().getMembers();
+//
+//            for (Member m : members) {
+//                System.out.println("m = " + m.getUsername());
+//            }
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
