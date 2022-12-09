@@ -17,7 +17,7 @@ public class Member {
 //    private Long teamId;
 
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) // 읽기 전용 필드가 됨.
     private Team team;
 
     public Long getId() {
@@ -36,13 +36,6 @@ public class Member {
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
 
     //    public Long getTeamId() {
 //        return teamId;

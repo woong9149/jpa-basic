@@ -70,16 +70,16 @@ public class JpaMain {
              * em.persist(team);
              */
 
-            Team team = new Team();
-            team.setName("TeamA");
-//            team.getMembers().add(member);
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("member1");
-//            member.setTeamId(team.getId());
-            member.setTeam(team);
-            em.persist(member);
+//            Team team = new Team();
+//            team.setName("TeamA");
+////            team.getMembers().add(member);
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+////            member.setTeamId(team.getId());
+//            member.setTeam(team);
+//            em.persist(member);
 
 
 
@@ -88,15 +88,15 @@ public class JpaMain {
 //
 //            System.out.println("findTeam = " + findTeam.getName());
 
-            em.flush();
-            em.clear();
-
-            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
-            List<Member> members = findTeam.getMembers();
-
-            for (Member m : members) {
-                System.out.println("m = " + m.getUsername());
-            }
+//            em.flush();
+//            em.clear();
+//
+//            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
+//            List<Member> members = findTeam.getMembers();
+//
+//            for (Member m : members) {
+//                System.out.println("m = " + m.getUsername());
+//            }
 
 //            Member findMember = em.find(Member.class, member.getId());
 //            List<Member> members = findMember.getTeam().getMembers();
@@ -104,6 +104,18 @@ public class JpaMain {
 //            for (Member m : members) {
 //                System.out.println("m = " + m.getUsername());
 //            }
+
+            Member member = new Member();
+            member.setUsername("member1");
+
+            em.persist(member);
+
+            Team team = new Team();
+            team.setName("teamA");
+
+            team.getMembers().add(member);
+
+            em.persist(team);
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
