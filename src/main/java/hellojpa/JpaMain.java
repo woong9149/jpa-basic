@@ -113,6 +113,7 @@ public class JpaMain {
             Team team = new Team();
             team.setName("teamA");
 
+            //  MEMBER 테이블에 있는 외래키가 업데이트 됨.
             team.getMembers().add(member);
 
             em.persist(team);
