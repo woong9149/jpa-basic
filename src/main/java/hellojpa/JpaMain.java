@@ -104,19 +104,36 @@ public class JpaMain {
 //            for (Member m : members) {
 //                System.out.println("m = " + m.getUsername());
 //            }
+//
+            /* ============================================================ */
+//            Member member = new Member();
+//            member.setUsername("member1");
+//
+//            em.persist(member);
+//
+//            Team team = new Team();
+//            team.setName("teamA");
+//
+//            //  MEMBER 테이블에 있는 외래키가 업데이트 됨.
+//            team.getMembers().add(member);
+//
+//            em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("member1");
+            /* ============================================================ */
 
-            em.persist(member);
+            Movie movie = new Movie();
+            movie.setDirector("최동훈");
+            movie.setActor("김윤석");
+            movie.setName("도둑들");
+            movie.setPrice(10000);
 
-            Team team = new Team();
-            team.setName("teamA");
+            em.persist(movie);
 
-            //  MEMBER 테이블에 있는 외래키가 업데이트 됨.
-            team.getMembers().add(member);
+            em.flush();
+            em.clear();
 
-            em.persist(team);
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie: " + findMovie);
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
