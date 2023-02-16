@@ -121,19 +121,36 @@ public class JpaMain {
 
             /* ============================================================ */
 
-            Movie movie = new Movie();
-            movie.setDirector("최동훈");
-            movie.setActor("김윤석");
-            movie.setName("도둑들");
-            movie.setPrice(10000);
+//            Movie movie = new Movie();
+//            movie.setDirector("최동훈");
+//            movie.setActor("김윤석");
+//            movie.setName("도둑들");
+//            movie.setPrice(10000);
+//
+//            em.persist(movie);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Movie findMovie = em.find(Movie.class, movie.getId());
+//            System.out.println("findMovie: " + findMovie);
 
-            em.persist(movie);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            Movie findMovie = em.find(Movie.class, movie.getId());
-            System.out.println("findMovie: " + findMovie);
+            Member m1 = em.find(Member.class, member1.getId());
+            Member m2 = em.getReference(Member.class, member2.getId());
+
+            logic(m1, m2);
+
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
@@ -143,5 +160,11 @@ public class JpaMain {
         }
 
         emf.close();
+    }
+
+    private static void logic(Member m1, Member m2) {
+        System.out.println("m1 == m2 : " + (m1.getClass() == m2.getClass())); // 타입비교를 == 으로 하면 안됨.
+        System.out.println("m1 : " + (m1 instanceof Member));
+        System.out.println("m2 : " + (m2 instanceof Member));
     }
 }
