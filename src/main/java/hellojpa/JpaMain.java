@@ -135,22 +135,40 @@ public class JpaMain {
 //            Movie findMovie = em.find(Movie.class, movie.getId());
 //            System.out.println("findMovie: " + findMovie);
 
-            Member member1 = new Member();
-            member1.setUsername("member1");
-            em.persist(member1);
+//            Member member1 = new Member();
+//            member1.setUsername("member1");
+//            em.persist(member1);
+//
+//            Member member2 = new Member();
+//            member2.setUsername("member2");
+//            em.persist(member2);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member m1 = em.find(Member.class, member1.getId());
+//            Member m2 = em.getReference(Member.class, member2.getId());
+//
+//            logic(m1, m2);
 
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            em.persist(member2);
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
+            em.persist(member);
 
             em.flush();
             em.clear();
 
-            Member m1 = em.find(Member.class, member1.getId());
-            Member m2 = em.getReference(Member.class, member2.getId());
+            Member findMember = em.find(Member.class, member.getId());
+            System.out.println("member = " + findMember.getTeam().getClass()); // 지연로딩을 사용하면 프록시 객체 사용
 
-            logic(m1, m2);
-
+            System.out.println("=======================");
+            member.getTeam().getName(); //이때 프록시를 초기화하고 db에서 조회해옴
+            System.out.println("=======================");
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
