@@ -151,24 +151,32 @@ public class JpaMain {
 //
 //            logic(m1, m2);
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+//            Team team = new Team();
+//            team.setName("teamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//            System.out.println("member = " + findMember.getTeam().getClass()); // 지연로딩을 사용하면 프록시 객체 사용
+//
+//            System.out.println("=======================");
+//            member.getTeam().getName(); //이때 프록시를 초기화하고 db에서 조회해옴
+//            System.out.println("=======================");
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setTeam(team);
-            em.persist(member);
+            Parent parent = new Parent();
 
-            em.flush();
-            em.clear();
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            Member findMember = em.find(Member.class, member.getId());
-            System.out.println("member = " + findMember.getTeam().getClass()); // 지연로딩을 사용하면 프록시 객체 사용
+            em.persist(parent); //cascade = CascadeType.ALL 옵션으로 child1, child2까지 모두 persist됨.
 
-            System.out.println("=======================");
-            member.getTeam().getName(); //이때 프록시를 초기화하고 db에서 조회해옴
-            System.out.println("=======================");
 
             tx.commit(); // 저장시, 실제로 DB에 저장되는 시점
         }catch (Exception e){
